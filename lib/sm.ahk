@@ -1610,6 +1610,26 @@ class SM {
     ; Remove empty paragraphs
     str := RegExReplace(str, "is)<p([^>]+)?>(&nbsp;|\s| )+<\/p>")
     str := RegExReplace(str, "is)<div([^>]+)?>(&nbsp;|\s| )+<\/div>")
+    
+    ; Replace wrongly encoded character, copied text is usually in UFT-8
+    str := StrReplace(str, "–", "--")    ; en dash, â€“
+    str := StrReplace(str, "—", "---")   ; em dash, â€”
+    str := StrReplace(str, "‘", "'")     ; left single quote, â€˜
+    str := StrReplace(str, "’", "'")     ; right single quote, â€™
+    str := StrReplace(str, "“", """")    ; left double quote, â€œ
+    str := StrReplace(str, "”", """")    ; right double quote, â€
+    str := StrReplace(str, "…", "...")   ; ellipsis, â€¦
+    str := StrReplace(str, "•", "*")     ; bullet point, â€¢
+    str := StrReplace(str, "·", "*")     ; middle dot, Â·
+    str := StrReplace(str, "−", "-")     ; minus sign, âˆ’
+    str := StrReplace(str, "―", "--")    ; horizontal bar, â€•
+    str := StrReplace(str, "‒", "-")     ; figure dash, â€’
+    str := StrReplace(str, "„", ",,")    ; double low-9 quotation mark, â€ž
+    str := StrReplace(str, "‚", ",")     ; single low-9 quotation mark, â€š
+    str := StrReplace(str, "‹", "<")     ; single left-pointing angle quotation mark, â€¹
+    str := StrReplace(str, "›", ">")     ; single right-pointing angle quotation mark, â€º
+    str := StrReplace(str, "«", "<<")    ; left-pointing double angle quotation mark, Â«
+    str := StrReplace(str, "»", ">>")    ; right-pointing double angle quotation mark, Â»
 
     v := 1
     while (v)  ; remove <div></div>
