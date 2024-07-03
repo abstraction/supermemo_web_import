@@ -825,6 +825,11 @@ class SM {
   }
 
   HTMLUrl2SMRefUrl(Url) {
+    ; The about:reader URI causes SM to crash when the mouse hovers over the
+    ; reference link and the user attempts to open the URL. This probably
+    ; happens because "about" URI is combined with HTTP scheme. To mitigate this
+    ; issue, we will remove the Reader view's URI fragment altogether.
+    Url := StrReplace(Url, "about:reader?url=", "")
     ; Can't just encode URI, Chinese characters will also be encoded
     ; For some reason, SuperMemo only encodes some part of the url
     ; Probably because of SuperMemo uses a lower version of IE?
