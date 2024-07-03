@@ -1,20 +1,32 @@
 # supermemo_web_import
- AutoHotkey script for quick import from browser to SuperMemo.
 
-Select text and press `Ctrl + Shift + Alt + A` in the browser (currently supporting Chrome, Firefox and Microsoft Edge) to import to SuperMemo. Press `Ctrl + Alt + A` for quick import without GUI.
+An AutoHotkey script for efficient importing from your browser to SuperMemo.
 
-For incremental web browsing (that is, not importing the whole article but instead highlight on the browser), press `Ctrl + Shift + Alt + B`. You need a highlighter plugin for this to work, and you need to set the highlight shortcut to `Shift + Alt + H`.
+## Key Features
 
-Please reload the script (via right clicking the AHK icon on the task bar) if something went wrong. This script depends on the UIA library and it might not work all the time (eg, not being able to retrieve current page's URL)--reloading mostly does the trick.
+- **Quick Import**: Select text and press `Ctrl + Shift + Alt + A` to import to SuperMemo. Supports Chrome, Firefox, and Microsoft Edge.
+- **Instant Import**: Use `Ctrl + Alt + A` for a quick import without the GUI.
+- **Incremental Web Browsing**: Highlight text directly in the browser with `Ctrl + Shift + Alt + B`. Requires a highlighter plugin with the highlight shortcut set to `Shift + Alt + H`.
+- **Formatted Imports**: Cleans up text formatting and includes references (title and link). For certain websites (e.g., YouTube), author and date are also included.
 
-Features:
+## Troubleshooting
 
-- format cleaned
-- references included (title, link); at some websites (like YouTube) author and date are also included
+- **Reload Script**: If something goes wrong (e.g., unable to retrieve the current page's URL), right-click the AHK icon in the taskbar to reload the script. This often resolves issues.
+- **Dependencies**: The script depends on the UIA library and may not always function perfectly. Reloading usually fixes most problems.
 
-To do:
+## Future Enhancements
 
-- add explanation for video and "online element" import
-- make a video about the above feature because it requires extra preparations in SuperMemo
+- Add detailed instructions for video and "online element" imports.
+- Create a tutorial video for the above features, as they require extra preparations in SuperMemo.
 
-You can support me here: https://www.buymeacoffee.com/winstonwolf or https://www.paypal.com/paypalme/winstonwolfie or https://ko-fi.com/winstonwolf
+## Support
+
+If you find this script useful, consider supporting me:
+
+- [Buy Me a Coffee](https://www.buymeacoffee.com/winstonwolf)
+- [PayPal](https://www.paypal.com/paypalme/winstonwolfie)
+- [Ko-fi](https://ko-fi.com/winstonwolf)
+
+---
+
+For technical users and power users looking to streamline their SuperMemo experience, this script offers a robust and efficient solution for importing web content directly from your browser.
