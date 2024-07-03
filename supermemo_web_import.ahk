@@ -13,6 +13,53 @@ GroupAdd, Browser, ahk_exe msedge.exe
 SM := new SM()
 Browser := new Browser()
 
+ HTMLUrl2SMRefUrl(Url) {
+    ; The about:reader URI causes SM to crash when the mouse hovers over the
+    ; reference link and the user attempts to open the URL. This probably
+    ; happens because "about" URI is combined with HTTP scheme. To mitigate this
+    ; issue, we will remove the Reader view's URI fragment altogether.
+    Url := StrReplace(Url, "about:reader?url=", "")
+    ; Can't just encode URI, Chinese characters will also be encoded
+    ; For some reason, SuperMemo only encodes some part of the url
+    ; Probably because of SuperMemo uses a lower version of IE?
+    Url := StrReplace(Url, "%20", " ")
+    Url := StrReplace(Url, "%21", "!")
+    Url := StrReplace(Url, "%22", """")
+    Url := StrReplace(Url, "%23", "#")
+    Url := StrReplace(Url, "%24", "$")
+    Url := StrReplace(Url, "%25", "%")
+    Url := StrReplace(Url, "%26", "&")
+    Url := StrReplace(Url, "%27", "'")
+    Url := StrReplace(Url, "%28", "(")
+    Url := StrReplace(Url, "%29", ")")
+    Url := StrReplace(Url, "%2A", "*")
+    Url := StrReplace(Url, "%2B", "+")
+    Url := StrReplace(Url, "%2C", ",")
+    Url := StrReplace(Url, "%2D", "-")
+    Url := StrReplace(Url, "%2E", ".")
+    Url := StrReplace(Url, "%2F", "/")
+    Url := StrReplace(Url, "%3A", ":")
+    Url := StrReplace(Url, "%3B", ";")
+    Url := StrReplace(Url, "%3C", "<")
+    Url := StrReplace(Url, "%3D", "=")
+    Url := StrReplace(Url, "%3E", ">")
+    Url := StrReplace(Url, "%3F", "?")
+    Url := StrReplace(Url, "%40", "@")
+    Url := StrReplace(Url, "%5B", "[")
+    Url := StrReplace(Url, "%5C", "\")
+    Url := StrReplace(Url, "%5D", "]")
+    Url := StrReplace(Url, "%5E", "^")
+    Url := StrReplace(Url, "%5F", "_")
+    Url := StrReplace(Url, "%60", "`")
+    Url := StrReplace(Url, "%7B", "{")
+    Url := StrReplace(Url, "%7C", "|")
+    Url := StrReplace(Url, "%7D", "}")
+    Url := StrReplace(Url, "%7E", "~")
+    if (IfContains(Url, "youtube.com/watch?v="))  ; sm19 deletes www from www.youtube.com
+      Url := StrReplace(Url, "www.")
+    return Url
+  }
+
 #if (WinActive("ahk_group Browser"))
 ; Incremental web browsing
 ^+!b::
@@ -60,7 +107,7 @@ Browser := new Browser()
 
   DupChecked := MB := false
   if (!IWB) {
-    if (SM.CheckDup(Browser.Url, false))
+    if (SM.CheckDup(HTMLUrl2SMRefUrl(Browser.Url), false))
       MB := MsgBox(3,, "Continue import?")
     DupChecked := true
   }
@@ -144,7 +191,7 @@ SMImportButtonImport:
 
   if (CheckDupForIWB) {
     MB := ""
-    if (SM.CheckDup(Browser.Url, false))
+    if (SM.CheckDup(HTMLUrl2SMRefUrl(Browser.Url), false))
       MB := MsgBox(3,, "Continue import?")
     DupChecked := true
     WinClose, % "ahk_class TBrowser ahk_pid " . WinGet("PID", "ahk_class TElWind")
